@@ -1,3 +1,5 @@
+require_relative "../../../support/ruby/helper.rb"
+
 # Subject under test
 def rank_hotel_review(user, title, text, stars)
   rank = 10
@@ -28,6 +30,32 @@ class Quixotic < SmellTest
     result = rank_hotel_review(user, "title", "body", 3)
 
     assert_equal 7, result
+  end
+  
+  def test_vulgar
+    user = OpenStruct.new(logged_in: false, age: 20)
+
+    result = rank_hotel_review(user, "title obscenities", "body", 3)
+
+    assert_equal 1, result
+  end
+
+  def test_vulgar_sailor
+    user = OpenStruct.new(logged_in: false, age: 20, occupation: "sailor")
+
+    result = rank_hotel_review(user, "title obscenities", "body", 4)
+
+    assert_equal 1, result
+    # the if else statement logic is flawed - sailor option doesn't work
+
+  end
+
+  def test_underage_vulgar
+    user = OpenStruct.new(logged_in: false, age: 13)
+
+    assert_raises("Underage swearing!") do 
+      rank_hotel_review(user, "title obscenities", "body", 3) 
+    end
   end
 end
 

@@ -1,8 +1,8 @@
 require "minitest/autorun"
-require "async_minitest_plugin"
-require "unreliable_minitest_plugin"
-require "time_ext"
 require "pry"
+require_relative "./async_minitest_plugin"
+require_relative "./unreliable_minitest_plugin"
+require_relative "./time_ext"
 
 class SmellTest < Minitest::Test
   def initialize(*args)

@@ -1,4 +1,4 @@
-require "helper"
+require_relative "../../../support/ruby/helper.rb"
 
 # Subject under test
 def is_21?(person)
@@ -12,7 +12,7 @@ class InvisibleAssertions < SmellTest
   def test_is_21
     person = OpenStruct.new(age: 21)
 
-    is_21?(person)
+    assert_nil is_21?(person)
   end
 
   def test_is_under_age
